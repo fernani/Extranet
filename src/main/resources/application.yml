@@ -1,0 +1,46 @@
+server:
+  port: 9092
+
+spring:
+  main:
+    banner-mode: off
+  ldap:
+    embedded:
+      ldif: classpath:test-server.ldif
+      base-dn: dc=springframework,dc=org
+      port: 8389
+  thymeleaf:
+    cache: false
+  application:
+    name: hola-spring-application
+  #datasource:
+    #url: jdbc:postgresql://localhost:/
+    #username: test
+    #password: test
+    #driverClassName: org.postgresql.Driver
+  datasource:
+    url: jdbc:mysql://localhost/test?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrival=true
+    username: root
+    password:
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  liquibase:
+    change-log: classpath:/liquibase/master.xml
+    contexts: dev
+  sql:
+    init:
+      #platform: postgres
+      encoding: UTF-8
+      platform: mysql
+logging:
+  pattern:
+    dateformat: hh:mm
+  level:
+    org.hibernate.sql: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
